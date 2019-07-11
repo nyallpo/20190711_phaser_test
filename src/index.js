@@ -1,6 +1,9 @@
-import Phaser from "phaser"
-import logoImg from "./assets/logo.png"
+import Phaser from 'phaser'
 import dudeImg from './assets/dude.png'
+import sky from './assets/sky1.png'
+
+const platforms = null
+const player = null
 
 const config = {
   type: Phaser.AUTO,
@@ -9,27 +12,24 @@ const config = {
   height: 600,
   scene: {
     preload: preload,
-    create: create
+    create: create,
+    update: update
   }
 }
 
 const game = new Phaser.Game(config)
 
 function preload() {
-  this.load.image("logo", logoImg)
   this.load.image('dude', dudeImg)
+  this.load.image('sky', sky)
 }
 
 function create() {
-  const logo = this.add.image(400, 150, "logo").setScale(0.2)
+  this.add.image(400, 300, 'sky')
   const dude = this.add.image(200, 100, 'dude')
 
-  this.tweens.add({
-    targets: logo,
-    y: 450,
-    duration: 2000,
-    ease: "Power2",
-    yoyo: false,
-    loop: -1
-  });
+}
+
+function update() {
+
 }
