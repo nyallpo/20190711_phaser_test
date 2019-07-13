@@ -1,4 +1,4 @@
-import './assets/css/main.scss'
+import './assets/css/index.scss'
 
 import constants from './constants'
 import Scene1 from './scenes/Scene1'

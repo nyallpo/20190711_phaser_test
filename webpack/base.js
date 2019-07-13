@@ -1,7 +1,8 @@
-const webpack = require("webpack");
-const path = require("path");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-const CleanWebpackPlugin = require("clean-webpack-plugin");
+const webpack = require("webpack")
+const path = require("path")
+const HtmlWebpackPlugin = require("html-webpack-plugin")
+const CleanWebpackPlugin = require("clean-webpack-plugin")
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 module.exports = {
   mode: "development",
@@ -29,7 +30,7 @@ module.exports = {
       },
       {
         test: /\.scss/,
-        use: ['style-loader', 'css-loader', 'sass-loader'],
+        use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
       }
     ]
   },
@@ -43,6 +44,9 @@ module.exports = {
     }),
     new HtmlWebpackPlugin({
       template: "./src/index.html"
+    }),
+    new MiniCssExtractPlugin({
+      filename: 'bundle.css',
     })
   ]
-};
+}

@@ -1,0 +1,12 @@
+@font-face {
+    font-family: "misaki";
+    src: url("../fonts/misaki_gothic_2nd.ttf");
+}
+
+$family-primary: 'misaki';
+
+@import "~bulma/bulma";
+
+body {
+    background: #fcfcfc;
+}
