@@ -58,6 +58,10 @@ export default class Scene1 extends Phaser.Scene {
       player.anims.stop()
       player.setVelocity(0)
     }
+
+    if (cursors.space.isDown) {
+      this.scene.start('scene2')
+    }
   }
 
   createAnims() {
