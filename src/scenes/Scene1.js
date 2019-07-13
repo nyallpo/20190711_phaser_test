@@ -1,6 +1,6 @@
 import Phaser from "phaser"
 import constants from '../constants'
-import ground from "../assets/platform.png"
+import tiles from '../assets/basictiles.png'
 import roa from '../assets/roa.png'
 
 let player, cursors, cameras
@@ -8,11 +8,10 @@ let player, cursors, cameras
 export default class Scene1 extends Phaser.Scene {
   constructor() {
     super({key: 'scene1', active: true})
-
   }
 
   preload() {
-    this.load.image('ground', ground)
+    this.load.image('tiles', tiles)
     this.load.spritesheet('roa', roa, {frameWidth: 16, frameHeight: 16})
   }
 
@@ -20,12 +19,23 @@ export default class Scene1 extends Phaser.Scene {
     const bgColor = Phaser.Display.Color.IntegerToRGB(0x339933)
     cameras = this.cameras.main.setBackgroundColor(bgColor)
 
-    const platforms = this.physics.add.staticGroup()
-    platforms.create(400, 568, 'ground').setScale(2).refreshBody()
+    const level = [
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0,64,64,64,64,64,64,64,64,64,64,64, 0],
+      [0,64, 0,64,64,64,64,64,64,64,64,64, 0],
+      [0,64,64,64,64, 0,64,64,64,64, 0,64, 0],
+      [0,64,64,64,64,64,64,64,64,64,64,64, 0],
+      [0,64,64,64,64,64,64,64,64, 0,64,64, 0],
+      [0,64,64,64,64, 0,64,64,64,64,64,64, 0],
+      [0,64,64,64,64,64,64,64,64,64,64,64, 0],
+      [0,64,64,64,64,64,64,64,64,64,64,64, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    ]
 
-    platforms.create(600, 400, 'ground');
-    platforms.create(50, 250, 'ground');
-    platforms.create(750, 220, 'ground');
+    const map = this.make.tilemap({data: level,tileWidth: 16, tileHeight: 16})
+    map.createStaticLayer(0, map.addTilesetImage('tiles'), 0,0).setScale(4.0)
+
+    const platforms = this.physics.add.staticGroup()
 
     player = this.physics.add.sprite(200, 450, 'roa').setScale(4.0)
     player.setBounce(0.2)
@@ -36,6 +46,7 @@ export default class Scene1 extends Phaser.Scene {
     this.physics.add.collider(player, platforms)
 
     cursors = this.input.keyboard.createCursorKeys()
+
   }
 
   update() {

@@ -3,10 +3,14 @@
     src: url("../fonts/misaki_gothic_2nd.ttf");
 }
 
-$family-primary: 'misaki';
+$family-primary: "misaki";
 
 @import "~bulma/bulma";
 
 body {
     background: #fcfcfc;
+}
+
+.title {
+    margin-top: 2rem;
 }
