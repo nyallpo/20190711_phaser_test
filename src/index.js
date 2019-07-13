@@ -1,3 +1,5 @@
+import './assets/css/main.scss'
+
 import constants from './constants'
 import Scene1 from './scenes/Scene1'
 import Scene2 from './scenes/Scene2'
