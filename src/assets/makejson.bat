@@ -1,1 +1,1 @@
-.\Aseprite\Aseprite.exe -b roa.aseprite --sheet roa.png --filename-format "{tag}_{tagframe}" --data roa.json
+.\Aseprite\Aseprite.exe -b roa.aseprite --sheet roa.png --filename-format "{tag}_{tagframe}" --data roa.json --format json-array

@@ -25,6 +25,10 @@ module.exports = {
         use: "file-loader",
       },
       {
+        test: /\.atlas$/i,
+        use: "file-loader",
+      },
+      {
         test: /\.(woff|woff2|eot|ttf|svg)$/,
         use: 'file-loader'
       },

@@ -2,6 +2,7 @@ import Phaser from "phaser"
 import constants from '../constants'
 import tiles from '../assets/basictiles.png'
 import roa from '../assets/roa.png'
+import roaAtlas from '../assets/roa.atlas'
 
 let player, cursors, cameras
 
@@ -13,6 +14,7 @@ export default class Scene1 extends Phaser.Scene {
   preload() {
     this.load.image('tiles', tiles)
     this.load.spritesheet('roa', roa, {frameWidth: 16, frameHeight: 16})
+    this.load.atlas('roa_a', roa, roaAtlas)
   }
 
   create() {
@@ -47,6 +49,8 @@ export default class Scene1 extends Phaser.Scene {
 
     cursors = this.input.keyboard.createCursorKeys()
 
+    //this.add.sprite(400, 100, 'roa_a').play('roa_all').setScale(4);
+    //this.add.image(300, 300, 'roa_a', 'shock_3').setScale(4)
   }
 
   update() {
@@ -66,13 +70,15 @@ export default class Scene1 extends Phaser.Scene {
       player.setVelocity(move_speed, 0)
       player.anims.play(walk_or_run + 'right', true)
     } else {
-      player.anims.stop()
+      //player.anims.stop()
       player.setVelocity(0)
     }
 
     if (cursors.space.isDown) {
-      this.scene.start('scene2')
+      player.anims.play('shock', true)
+      //this.scene.start('scene2')
     }
+
   }
 
   createAnims() {
@@ -127,9 +133,11 @@ export default class Scene1 extends Phaser.Scene {
       frameRate: runFrameRate,
       repeat: -1,
     })
-
     this.anims.create({
-      key: ''
-    })
+      key: 'shock',
+      delay: 10,
+      frames: this.anims.generateFrameNames('roa_a', {prefix: 'shock_', end: 3}),
+      repeat: 0
+    });
   }
 }
