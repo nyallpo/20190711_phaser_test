@@ -127,5 +127,9 @@ export default class Scene1 extends Phaser.Scene {
       frameRate: runFrameRate,
       repeat: -1,
     })
+
+    this.anims.create({
+      key: ''
+    })
   }
 }
