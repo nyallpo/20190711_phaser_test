@@ -51,6 +51,18 @@ export default class Scene1 extends Phaser.Scene {
 
     //this.add.sprite(400, 100, 'roa_a').play('roa_all').setScale(4);
     //this.add.image(300, 300, 'roa_a', 'shock_3').setScale(4)
+    this.input.keyboard.on('keydown-A', function (event) {
+      player.anims.play('wink', true)
+    });
+    this.input.keyboard.on('keydown-S', function (event) {
+      player.anims.play('wink_c', true)
+    });
+    this.input.keyboard.on('keydown-C', function (event) {
+      player.anims.play('crouch', true)
+    });
+    this.input.keyboard.on('keydown-X', function (event) {
+      player.anims.play('crouch_reverse', true)
+    });
   }
 
   update() {
@@ -136,7 +148,31 @@ export default class Scene1 extends Phaser.Scene {
     this.anims.create({
       key: 'shock',
       delay: 10,
-      frames: this.anims.generateFrameNames('roa_a', {prefix: 'shock_', end: 3}),
+      frames: this.anims.generateFrameNames('roa_a', {prefix: 'shock_', end: 4}),
+      repeat: 0
+    });
+    this.anims.create({
+      key: 'wink',
+      delay: 10,
+      frames: this.anims.generateFrameNames('roa_a', {prefix: 'wink_', end: 3}),
+      repeat: 0
+    });
+    this.anims.create({
+      key: 'wink_c',
+      delay: 10,
+      frames: this.anims.generateFrameNames('roa_a', {prefix: 'wink_c_', end: 3}),
+      repeat: 0
+    });
+    this.anims.create({
+      key: 'crouch',
+      delay: 50,
+      frames: this.anims.generateFrameNames('roa_a', {prefix: 'crouch_', end: 3}),
+      repeat: 0
+    });
+    this.anims.create({
+      key: 'crouch_reverse',
+      delay: 50,
+      frames: this.anims.generateFrameNames('roa_a', {prefix: 'crouch_', end: 3}).reverse(),
       repeat: 0
     });
   }
