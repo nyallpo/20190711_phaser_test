@@ -10,7 +10,6 @@ export default class Scene1 extends Phaser.Scene {
   }
 
   preload() {
-    Roa.preload(this)
     this.load.image('tiles', tiles)
   }
 
@@ -37,7 +36,7 @@ export default class Scene1 extends Phaser.Scene {
 
     const platforms = this.physics.add.staticGroup()
 
-    player = this.physics.add.sprite(200, 450, Roa.key())
+    player = this.physics.add.sprite(200, 450, Roa.KEY)
     console.log(player)
     player.setScale(4.0)
     player.setBounce(0.2)

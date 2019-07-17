@@ -2,6 +2,7 @@ import './assets/css/index.scss'
 
 import Phaser from 'phaser'
 import constants from './constants'
+import Boot from './scenes/Boot'
 import Scene1 from './scenes/Scene1'
 import Scene2 from './scenes/Scene2'
 
@@ -22,7 +23,7 @@ const config = {
     }
   },
   pixelArt: true,
-  scene: [Scene1, Scene2]
+  scene: [Boot, Scene1, Scene2]
 }
 
 window.onload = () => {
