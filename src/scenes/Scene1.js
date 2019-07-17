@@ -1,9 +1,7 @@
 import Phaser from "phaser"
 import constants from '../constants'
 import tiles from '../assets/basictiles.png'
-import roa from '../assets/roa.png'
-import roaAtlas from '../assets/roa.atlas'
-
+import Roa from '../players/Roa'
 let player, cursors, cameras
 
 export default class Scene1 extends Phaser.Scene {
@@ -12,12 +10,12 @@ export default class Scene1 extends Phaser.Scene {
   }
 
   preload() {
+    Roa.preload(this)
     this.load.image('tiles', tiles)
-    this.load.spritesheet('roa', roa, {frameWidth: 16, frameHeight: 16})
-    this.load.atlas('roa_a', roa, roaAtlas)
   }
 
   create() {
+    Roa.makeAnims(this)
     const bgColor = Phaser.Display.Color.IntegerToRGB(0x339933)
     cameras = this.cameras.main.setBackgroundColor(bgColor)
 
@@ -39,18 +37,16 @@ export default class Scene1 extends Phaser.Scene {
 
     const platforms = this.physics.add.staticGroup()
 
-    player = this.physics.add.sprite(200, 450, 'roa').setScale(4.0)
+    player = this.physics.add.sprite(200, 450, Roa.key())
+    console.log(player)
+    player.setScale(4.0)
     player.setBounce(0.2)
     player.setCollideWorldBounds(true)
-
-    this.createAnims()
 
     this.physics.add.collider(player, platforms)
 
     cursors = this.input.keyboard.createCursorKeys()
 
-    //this.add.sprite(400, 100, 'roa_a').play('roa_all').setScale(4);
-    //this.add.image(300, 300, 'roa_a', 'shock_3').setScale(4)
     this.input.keyboard.on('keydown-A', function (event) {
       player.anims.play('wink', true)
     });
@@ -82,7 +78,7 @@ export default class Scene1 extends Phaser.Scene {
       player.setVelocity(move_speed, 0)
       player.anims.play(walk_or_run + 'right', true)
     } else {
-      //player.anims.stop()
+      // player.anims.stop()
       player.setVelocity(0)
     }
 
@@ -90,90 +86,5 @@ export default class Scene1 extends Phaser.Scene {
       player.anims.play('shock', true)
       //this.scene.start('scene2')
     }
-
-  }
-
-  createAnims() {
-    const walkFrameRate = 8
-    this.anims.create({
-      key: 'walk_down',
-      frames: this.anims.generateFrameNumbers('roa', {start: 0, end: 3}),
-      frameRate: walkFrameRate,
-      repeat: -1,
-    })
-    this.anims.create({
-      key: 'walk_up',
-      frames: this.anims.generateFrameNumbers('roa', {start: 4, end: 7}),
-      frameRate: walkFrameRate,
-      repeat: -1,
-    })
-    this.anims.create({
-      key: 'walk_left',
-      frames: this.anims.generateFrameNumbers('roa', {start: 8, end: 11}),
-      frameRate: walkFrameRate,
-      repeat: -1,
-    })
-    this.anims.create({
-      key: 'walk_right',
-      frames: this.anims.generateFrameNumbers('roa', {start: 12, end: 15}),
-      frameRate: walkFrameRate,
-      repeat: -1,
-    })
-
-    const runFrameRate = 15
-    this.anims.create({
-      key: 'run_down',
-      frames: this.anims.generateFrameNumbers('roa', {start: 16, end: 19}),
-      frameRate: runFrameRate,
-      repeat: -1,
-    })
-    this.anims.create({
-      key: 'run_up',
-      frames: this.anims.generateFrameNumbers('roa', {start: 20, end: 23}),
-      frameRate: runFrameRate,
-      repeat: -1,
-    })
-    this.anims.create({
-      key: 'run_left',
-      frames: this.anims.generateFrameNumbers('roa', {start: 24, end: 27}),
-      frameRate: runFrameRate,
-      repeat: -1,
-    })
-    this.anims.create({
-      key: 'run_right',
-      frames: this.anims.generateFrameNumbers('roa', {start: 28, end: 31}),
-      frameRate: runFrameRate,
-      repeat: -1,
-    })
-    this.anims.create({
-      key: 'shock',
-      delay: 10,
-      frames: this.anims.generateFrameNames('roa_a', {prefix: 'shock_', end: 4}),
-      repeat: 0
-    });
-    this.anims.create({
-      key: 'wink',
-      delay: 10,
-      frames: this.anims.generateFrameNames('roa_a', {prefix: 'wink_', end: 3}),
-      repeat: 0
-    });
-    this.anims.create({
-      key: 'wink_c',
-      delay: 10,
-      frames: this.anims.generateFrameNames('roa_a', {prefix: 'wink_c_', end: 3}),
-      repeat: 0
-    });
-    this.anims.create({
-      key: 'crouch',
-      delay: 50,
-      frames: this.anims.generateFrameNames('roa_a', {prefix: 'crouch_', end: 3}),
-      repeat: 0
-    });
-    this.anims.create({
-      key: 'crouch_reverse',
-      delay: 50,
-      frames: this.anims.generateFrameNames('roa_a', {prefix: 'crouch_', end: 3}).reverse(),
-      repeat: 0
-    });
   }
 }
