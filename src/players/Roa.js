@@ -1,7 +1,7 @@
 import roaPng from '../assets/roa.png'
 import roaAtlas from '../assets/roa.atlas'
 
-export default class Roa extends Phaser.Physics.Arcade.Sprite {
+export default class Roa {
   static get KEY() {
     return 'roa'
   }
@@ -65,6 +65,13 @@ export default class Roa extends Phaser.Physics.Arcade.Sprite {
       frames: scene.anims.generateFrameNames(this.KEY, {prefix: 'crouch_', end: 3}).reverse(),
       repeat: 0
     })
+  }
+
+  constructor(scene, x, y) {
+    this.sprite = scene.physics.add.sprite(x, y, Roa.KEY)
+    this.sprite.setScale(4.0)
+    this.sprite.setBounce(0.2)
+    this.sprite.setCollideWorldBounds(true)
   }
 
 }

@@ -36,11 +36,8 @@ export default class Scene1 extends Phaser.Scene {
 
     const platforms = this.physics.add.staticGroup()
 
-    player = this.physics.add.sprite(200, 450, Roa.KEY)
+    player = new Roa(this, 400, 200)
     console.log(player)
-    player.setScale(4.0)
-    player.setBounce(0.2)
-    player.setCollideWorldBounds(true)
 
     this.physics.add.collider(player, platforms)
 
