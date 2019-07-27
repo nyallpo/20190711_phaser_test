@@ -1,21 +1,18 @@
 import Phaser from "phaser"
 
 import Roa from '../players/Roa'
+import tiles from '../assets/basictiles.png'
 
 /**
  * ゲームに必要なアセットを読み込むためのシーン
  */
 export default class Boot extends Phaser.Scene {
   constructor() {
-    super({
-      key: 'boot'
-    })
+    super({key: 'boot', active: true})
   }
 
   preload() {
     console.log('Boot start')
-
-    Roa.preload(this)
 
     this.load.on('progress', function (value) {
       console.log(value);
@@ -30,5 +27,8 @@ export default class Boot extends Phaser.Scene {
       this.scene.start('scene1')
     });
 
+    // Loading
+    this.load.image('tiles', tiles)
+    Roa.preload(this)
   }
 }

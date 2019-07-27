@@ -2,7 +2,7 @@ import constants from '../constants'
 
 export default class Scene2 extends Phaser.Scene {
   constructor() {
-    super({key: 'scene2', active: false})
+    super({key: 'scene2'})
   }
 
   create() {

@@ -1,16 +1,15 @@
 import Phaser from "phaser"
 import constants from '../constants'
-import tiles from '../assets/basictiles.png'
 import Roa from '../players/Roa'
 let player, cursors, cameras
 
 export default class Scene1 extends Phaser.Scene {
   constructor() {
-    super({key: 'scene1', active: true})
+    super({key: 'scene1'})
   }
 
   preload() {
-    this.load.image('tiles', tiles)
+    console.log('Scene1 preload')
   }
 
   create() {
@@ -44,16 +43,16 @@ export default class Scene1 extends Phaser.Scene {
     cursors = this.input.keyboard.createCursorKeys()
 
     this.input.keyboard.on('keydown-A', function (event) {
-      player.anims.play('wink', true)
+      player.sprite.anims.play('wink', true)
     });
     this.input.keyboard.on('keydown-S', function (event) {
-      player.anims.play('wink_c', true)
+      player.sprite.anims.play('wink_c', true)
     });
     this.input.keyboard.on('keydown-C', function (event) {
-      player.anims.play('crouch', true)
+      player.sprite.anims.play('crouch', true)
     });
     this.input.keyboard.on('keydown-X', function (event) {
-      player.anims.play('crouch_reverse', true)
+      player.sprite.anims.play('crouch_reverse', true)
     });
   }
 
@@ -62,24 +61,24 @@ export default class Scene1 extends Phaser.Scene {
     const move_speed = cursors.shift.isDown ? constants.RUN_SPEED : constants.WALK_SPEED
 
     if (cursors.down.isDown) {
-      player.setVelocity(0, move_speed)
-      player.anims.play(walk_or_run + 'down', true)
+      player.sprite.setVelocity(0, move_speed)
+      player.sprite.anims.play(walk_or_run + 'down', true)
     } else if (cursors.up.isDown) {
-      player.setVelocity(0, -move_speed)
-      player.anims.play(walk_or_run + 'up', true)
+      player.sprite.setVelocity(0, -move_speed)
+      player.sprite.anims.play(walk_or_run + 'up', true)
     } else if (cursors.left.isDown) {
-      player.setVelocity(-move_speed, 0)
-      player.anims.play(walk_or_run + 'left', true)
+      player.sprite.setVelocity(-move_speed, 0)
+      player.sprite.anims.play(walk_or_run + 'left', true)
     } else if (cursors.right.isDown) {
-      player.setVelocity(move_speed, 0)
-      player.anims.play(walk_or_run + 'right', true)
+      player.sprite.setVelocity(move_speed, 0)
+      player.sprite.anims.play(walk_or_run + 'right', true)
     } else {
       // player.anims.stop()
-      player.setVelocity(0)
+      player.sprite.setVelocity(0)
     }
 
     if (cursors.space.isDown) {
-      player.anims.play('shock', true)
+      player.sprite.anims.play('shock', true)
       //this.scene.start('scene2')
     }
   }
