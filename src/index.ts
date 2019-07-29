@@ -1,6 +1,5 @@
 import './assets/css/index.scss'
 
-import Phaser from 'phaser'
 import constants from './constants'
 import Boot from './scenes/Boot'
 import Scene1 from './scenes/Scene1'
@@ -13,8 +12,9 @@ const config = {
   width: constants.SCREEN_X,
   height: constants.SCREEN_Y,
   scale: {
-    mode: Phaser.Scale.FIT,
+    mode: Phaser.Scale.CENTER_BOTH,
   },
+  zoom: 4,
   physics: {
     default: 'arcade',
     arcade: {

@@ -7,6 +7,9 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 module.exports = {
   mode: 'development',
   devtool: 'eval-source-map',
+  resolve: {
+    extensions: [".ts", ".js"]
+  },
   module: {
     rules: [
       {
@@ -17,9 +20,7 @@ module.exports = {
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader'
-        }
+        use: 'babel-loader'
       },
       {
         test: [/\.vert$/, /\.frag$/],

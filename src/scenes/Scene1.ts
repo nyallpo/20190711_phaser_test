@@ -1,4 +1,3 @@
-import Phaser from "phaser"
 import constants from '../constants'
 import Roa from '../players/Roa'
 let player, cursors, cameras
@@ -31,21 +30,21 @@ export default class Scene1 extends Phaser.Scene {
     ]
 
     const map = this.make.tilemap({data: level,tileWidth: 16, tileHeight: 16})
-    map.createStaticLayer(0, map.addTilesetImage('tiles'), 0,0).setScale(4.0)
+    map.createStaticLayer(0, map.addTilesetImage('tiles'), 0,0)
 
     const platforms = this.physics.add.staticGroup()
 
-    player = new Roa(this, 400, 200)
+    player = new Roa(this, 80, 40)
     console.log(player)
 
     this.physics.add.collider(player, platforms)
 
     cursors = this.input.keyboard.createCursorKeys()
 
-    this.input.keyboard.on('keydown-A', function (event) {
+    this.input.keyboard.on('keydown-A', function () {
       player.sprite.anims.play('wink', true)
     });
-    this.input.keyboard.on('keydown-S', function (event) {
+    this.input.keyboard.on('keydown-S', function () {
       player.sprite.anims.play('wink_c', true)
     });
     this.input.keyboard.on('keydown-C', function (event) {

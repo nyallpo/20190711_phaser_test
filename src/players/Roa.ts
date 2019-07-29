@@ -2,9 +2,9 @@ import roaPng from '../assets/roa.png'
 import roaAtlas from '../assets/roa.atlas'
 
 export default class Roa {
-  static get KEY() {
-    return 'roa'
-  }
+  static readonly KEY= 'roa'
+  sprite: Phaser.Physics.Arcade.Sprite
+  direction: string
 
   static preload(scene) {
     scene.load.atlas(this.KEY, roaPng, roaAtlas)
@@ -69,7 +69,6 @@ export default class Roa {
 
   constructor(scene, x, y) {
     this.sprite = scene.physics.add.sprite(x, y, Roa.KEY)
-    this.sprite.setScale(4.0)
     this.sprite.setBounce(0.2)
     this.sprite.setCollideWorldBounds(true)
   }
