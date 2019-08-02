@@ -12,7 +12,7 @@ const config = {
   width: constants.SCREEN_X,
   height: constants.SCREEN_Y,
   scale: {
-    mode: Phaser.Scale.CENTER_BOTH,
+    mode: Phaser.Scale.FIT,
   },
   zoom: 4,
   physics: {

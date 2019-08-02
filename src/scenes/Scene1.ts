@@ -1,8 +1,13 @@
 import constants from '../constants'
-import Roa from '../players/Roa'
-let player, cursors, cameras
+import Player from '../players/Player'
+import Keys from '../players/Keys'
+import s1 from '../levels/s1.json'
 
 export default class Scene1 extends Phaser.Scene {
+  player: Player
+  keys: Keys
+  layer: any
+
   constructor() {
     super({key: 'scene1'})
   }
@@ -12,73 +17,60 @@ export default class Scene1 extends Phaser.Scene {
   }
 
   create() {
-    Roa.makeAnims(this)
+    Player.makeAnims(this)
+    this.keys = new Keys(this)
     const bgColor = Phaser.Display.Color.IntegerToRGB(0x339933)
-    cameras = this.cameras.main.setBackgroundColor(bgColor)
+    this.cameras.main.setBackgroundColor(bgColor)
 
     const level = [
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      [0,64,64,64,64,64,64,64,64,64,64,64, 0],
-      [0,64, 0,64,64,64,64,64,64,64,64,64, 0],
-      [0,64,64,64,64, 0,64,64,64,64, 0,64, 0],
-      [0,64,64,64,64,64,64,64,64,64,64,64, 0],
-      [0,64,64,64,64,64,64,64,64, 0,64,64, 0],
-      [0,64,64,64,64, 0,64,64,64,64,64,64, 0],
-      [0,64,64,64,64,64,64,64,64,64,64,64, 0],
-      [0,64,64,64,64,64,64,64,64,64,64,64, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 0],
+      [0, 64, 0, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 0],
+      [0, 64, 64, 64, 64, 0, 64, 64, 64, 64, 0, 64, 64, 64, 0],
+      [0, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 0],
+      [0, 64, 64, 64, 64, 64, 64, 64, 64, 0, 64, 64, 64, 64, 0],
+      [0, 64, 64, 64, 64, 0, 64, 64, 64, 64, 64, 64, 64, 64, 0],
+      [0, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 0],
+      [0, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     ]
 
-    const map = this.make.tilemap({data: level,tileWidth: 16, tileHeight: 16})
-    map.createStaticLayer(0, map.addTilesetImage('tiles'), 0,0)
+    const map = this.make.tilemap({data: level, tileWidth: 16, tileHeight: 16})
+    const tiles = map.addTilesetImage('tiles')
+    map.createStaticLayer(0, tiles, 0, 0)
 
-    const platforms = this.physics.add.staticGroup()
+    this.player = new Player(this, 80, 40)
 
-    player = new Roa(this, 80, 40)
-    console.log(player)
-
-    this.physics.add.collider(player, platforms)
-
-    cursors = this.input.keyboard.createCursorKeys()
-
-    this.input.keyboard.on('keydown-A', function () {
-      player.sprite.anims.play('wink', true)
-    });
-    this.input.keyboard.on('keydown-S', function () {
-      player.sprite.anims.play('wink_c', true)
-    });
-    this.input.keyboard.on('keydown-C', function (event) {
-      player.sprite.anims.play('crouch', true)
-    });
-    this.input.keyboard.on('keydown-X', function (event) {
-      player.sprite.anims.play('crouch_reverse', true)
-    });
+    // cursors = this.input.keyboard.createCursorKeys()
+    //
+    // this.input.keyboard.on('keydown-A', function () {
+    //   this.player.sprite.anims.play('emo_wink', true)
+    // });
+    // this.input.keyboard.on('keydown-S', function () {
+    //   this.player.sprite.anims.play('emo_wink_c', true)
+    // });
+    // this.input.keyboard.on('keydown-C', function (event) {
+    //   this.player.sprite.anims.play('emo_crouch', true)
+    // });
+    // this.input.keyboard.on('keydown-X', function (event) {
+    //   this.player.sprite.anims.play('emo_crouch_reverse', true)
+    // });
   }
 
   update() {
-    const walk_or_run = cursors.shift.isDown ? 'run_' : 'walk_'
-    const move_speed = cursors.shift.isDown ? constants.RUN_SPEED : constants.WALK_SPEED
-
-    if (cursors.down.isDown) {
-      player.sprite.setVelocity(0, move_speed)
-      player.sprite.anims.play(walk_or_run + 'down', true)
-    } else if (cursors.up.isDown) {
-      player.sprite.setVelocity(0, -move_speed)
-      player.sprite.anims.play(walk_or_run + 'up', true)
-    } else if (cursors.left.isDown) {
-      player.sprite.setVelocity(-move_speed, 0)
-      player.sprite.anims.play(walk_or_run + 'left', true)
-    } else if (cursors.right.isDown) {
-      player.sprite.setVelocity(move_speed, 0)
-      player.sprite.anims.play(walk_or_run + 'right', true)
+    // Player movement
+    if (this.keys.pressAnyCursor()) {
+      this.player.move(this.keys)
     } else {
-      // player.anims.stop()
-      player.sprite.setVelocity(0)
+      this.player.wait()
     }
 
-    if (cursors.space.isDown) {
-      player.sprite.anims.play('shock', true)
-      //this.scene.start('scene2')
-    }
+
+    // this.player.sprite.anims.currentAnim.key
+
+    // if (cursors.space.isDown) {
+    //   this.player.sprite.anims.play('shock', true)
+    //this.scene.start('scene2')
+    // }
   }
 }

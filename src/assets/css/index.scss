@@ -11,6 +11,12 @@ body {
     background: #fcfcfc;
 }
 
+#game-wrapper {
+    width: 240 * 3px;
+    height: 160 * 3px;
+    display: inline-block;
+}
+
 .title {
     margin-top: 2rem;
 }

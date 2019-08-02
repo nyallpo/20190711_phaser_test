@@ -1,6 +1,6 @@
 import Phaser from "phaser"
 
-import Roa from '../players/Roa'
+import Player from '../players/Player'
 import tiles from '../assets/basictiles.png'
 
 /**
@@ -29,6 +29,7 @@ export default class Boot extends Phaser.Scene {
 
     // Loading
     this.load.image('tiles', tiles)
-    Roa.preload(this)
+    this.load.tilemapCSV('stage1', )
+    Player.preload(this)
   }
 }

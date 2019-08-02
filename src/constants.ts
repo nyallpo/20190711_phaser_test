@@ -1,6 +1,6 @@
 export default Object.freeze({
-  SCREEN_X: 250,
-  SCREEN_Y: 200,
-  WALK_SPEED: 180,
-  RUN_SPEED: 240,
+  SCREEN_X: 240,
+  SCREEN_Y: 160,
+  WALK_SPEED: 60,
+  RUN_SPEED: 90,
 })
