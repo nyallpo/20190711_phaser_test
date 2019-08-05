@@ -1,5 +1,3 @@
-import roaPng from '../assets/roa.png'
-import roaAtlas from '../assets/roa.atlas'
 import Keys from './Keys'
 import constants from '../constants'
 
@@ -9,7 +7,7 @@ export default class Player {
   direction: Direction = Direction.down
 
   static preload(scene) {
-    scene.load.atlas(this.KEY, roaPng, roaAtlas)
+    scene.load.atlas(this.KEY, 'assets/images/roa.png', 'assets/images/roa.atlas')
   }
 
   static makeAnims(scene) {

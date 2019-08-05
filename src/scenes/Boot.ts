@@ -1,7 +1,5 @@
 import Phaser from "phaser"
-
 import Player from '../players/Player'
-import tiles from '../assets/basictiles.png'
 
 /**
  * ゲームに必要なアセットを読み込むためのシーン
@@ -28,8 +26,8 @@ export default class Boot extends Phaser.Scene {
     });
 
     // Loading
-    this.load.image('tiles', tiles)
-    this.load.tilemapCSV('stage1', )
+    this.load.image('tiles', 'assets/images/basictiles.png')
+    // this.load.tilemapCSV('stage1', )
     Player.preload(this)
   }
 }

@@ -1,7 +1,6 @@
 import constants from '../constants'
 import Player from '../players/Player'
 import Keys from '../players/Keys'
-import s1 from '../levels/s1.json'
 
 export default class Scene1 extends Phaser.Scene {
   player: Player
@@ -34,11 +33,10 @@ export default class Scene1 extends Phaser.Scene {
       [0, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 0],
       [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     ]
-
     const map = this.make.tilemap({data: level, tileWidth: 16, tileHeight: 16})
     const tiles = map.addTilesetImage('tiles')
     map.createStaticLayer(0, tiles, 0, 0)
-
+    // this.load.tilemapTiledJSON("map", '')
     this.player = new Player(this, 80, 40)
 
     // cursors = this.input.keyboard.createCursorKeys()

@@ -1,4 +1,4 @@
-import './assets/css/index.scss'
+import './css/index.scss'
 
 import constants from './constants'
 import Boot from './scenes/Boot'
