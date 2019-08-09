@@ -13,6 +13,7 @@ export default class Scene1 extends Phaser.Scene {
 
   preload() {
     console.log('Scene1 preload')
+    this.load.tilemapTiledJSON('s1', 'assets/levels/s3.json');
   }
 
   create() {
@@ -21,23 +22,18 @@ export default class Scene1 extends Phaser.Scene {
     const bgColor = Phaser.Display.Color.IntegerToRGB(0x339933)
     this.cameras.main.setBackgroundColor(bgColor)
 
-    const level = [
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 0],
-      [0, 64, 0, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 0],
-      [0, 64, 64, 64, 64, 0, 64, 64, 64, 64, 0, 64, 64, 64, 0],
-      [0, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 0],
-      [0, 64, 64, 64, 64, 64, 64, 64, 64, 0, 64, 64, 64, 64, 0],
-      [0, 64, 64, 64, 64, 0, 64, 64, 64, 64, 64, 64, 64, 64, 0],
-      [0, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 0],
-      [0, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    ]
-    const map = this.make.tilemap({data: level, tileWidth: 16, tileHeight: 16})
+    // const map = this.make.tilemap({data: level, tileWidth: 16, tileHeight: 16})
+    // map.createStaticLayer(0, tiles, 0, 0)
+
+    const map = this.make.tilemap({key: 's1'})
     const tiles = map.addTilesetImage('tiles')
-    map.createStaticLayer(0, tiles, 0, 0)
-    // this.load.tilemapTiledJSON("map", '')
+    const belowLayer = map.createStaticLayer('Ground', tiles, 0, 0)
+    const worldLayer = map.createStaticLayer('Stage', tiles, 0, 0)
+    worldLayer.setCollision([0])
+
     this.player = new Player(this, 80, 40)
+
+    this.physics.add.collider(this.player.sprite, worldLayer)
 
     // cursors = this.input.keyboard.createCursorKeys()
     //

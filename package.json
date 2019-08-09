@@ -5,7 +5,7 @@
   "main": "src/index.ts",
   "scripts": {
     "build": "webpack --config webpack/prod.js",
-    "start": "webpack-dev-server --content-base src --config webpack/base.js --open",
+    "start": "webpack-dev-server --content-base src --config webpack/base.js",
     "start:dist": "cd dist; php -S localhost:8080"
   },
   "author": "ysk",
